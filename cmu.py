@@ -40,9 +40,6 @@ def updateSprites(sprite: list):
         spriteElement.top = yPos
         spriteElement.visible = (i == Index)
      
-            
-    
-
 # Movement Logic
 def onKeyHold(keys):
     global xPos, yPos, Index, leftFacing, rightFacing
