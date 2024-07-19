@@ -6,8 +6,6 @@ xPos = 0
 yPos = 0
 Index = 0
 
-
-
 # Loading sprites
 rightFacing = [
     Image('imgAssets/cycle1.png', xPos, yPos),
@@ -46,14 +44,16 @@ def updateSprites(sprite: list):
 # Movement Logic
 def onKeyHold(keys):
     global xPos, yPos, Index, leftFacing, rightFacing
-    if ('w' in keys) or ('a' in keys) or ('s' in keys) or ('d' in keys): 
-        if ((xPos > 0) and (xPos < 400)) or ((yPos > 0) and (yPos < 400)):
+    if ('w' in keys) or ('a' in keys) or ('s' in keys) or ('d' in keys):  
+        if yPos >= 0 and yPos < 400:     
             if 'w' in keys:
                 yPos -= 10
                 updateSprites(None)
             if 's' in keys:
                 yPos += 10
                 updateSprites(None)
+        
+        if xPos >= 0 and xPos < 400:
             if 'a' in keys:
                 xPos -= 10     
                 updateSprites(leftFacing)   
