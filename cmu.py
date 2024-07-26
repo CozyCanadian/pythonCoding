@@ -1,10 +1,13 @@
 import cmu_graphics
 from cmu_graphics import *
+from random import randrange
 
 # Variables
 xPos = 0
 yPos = 0
 Index = 0
+isFound = False
+treasureChest = Image('imgAssets/treasureChest.png', randrange(10, 390), randrange(10, 390))
 
 # Loading sprites
 rightFacing = [
@@ -21,11 +24,16 @@ leftFacing = [
     Image('imgAssets/cycle4L.png', xPos, yPos)
 ]
 
+#Treasure Menu Assset
+Image('imgAssets/treasureMenu.png', 0, 0)
+
+
 # Initialize visibility
 for sprite in rightFacing[1:] + leftFacing:
     sprite.visible = False
 
 selectedSprite = rightFacing
+
 def updateSprites(sprite: list):
     global Index, selectedSprite    
 
@@ -41,6 +49,19 @@ def updateSprites(sprite: list):
         spriteElement.top = yPos
         spriteElement.visible = (i == Index)
      
+# Game logic
+def onStep():
+    global xPos, yPos, isFound, treasureChest
+
+    if isFound == True: #Need to spawn in treasure chest
+        treasureChest.left = randrange(10, 390)
+        treasureChest.top = randrange(10, 390)
+        isFound = False
+    elif isFound == False:
+        distanceToChest = distance(xPos+40, yPos+40, treasureChest.left+14.5, treasureChest.top+12) #29x24px
+        if distanceToChest <= 75: #Found chest
+            isFound = True
+
 # Movement Logic
 def onKeyHold(keys):
     global xPos, yPos, Index, leftFacing, rightFacing
