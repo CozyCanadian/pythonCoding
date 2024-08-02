@@ -7,9 +7,8 @@ xPos = 0
 yPos = 0
 Index = 0
 isFound = False
-treasureChest = Image('imgAssets/treasureChest.png', randrange(10, 390), randrange(10, 390))
 
-# Loading sprites
+# Icons
 rightFacing = [
     Image('imgAssets/cycle1.png', xPos, yPos),
     Image('imgAssets/cycle2.png', xPos, yPos),
@@ -24,8 +23,10 @@ leftFacing = [
     Image('imgAssets/cycle4L.png', xPos, yPos)
 ]
 
-#Treasure Menu Assset
+treasureChest = Image('imgAssets/treasureChest.png', randrange(10, 390), randrange(10, 390))
 Image('imgAssets/treasureMenu.png', 0, 0)
+
+plrGold = Label(0, 115, 16, size=18, fill='white', bold=True, align='left')
 
 
 # Initialize visibility
