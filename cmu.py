@@ -25,7 +25,7 @@ leftFacing = [
 ]
 
 treasureChest = Image('imgAssets/treasureChest.png', randrange(10, 390), randrange(10, 390))
-sceneBackground = Image('imgAssets\1000Scene.png', 500, 500)
+sceneBackground = Image('imgAssets\backgroundScene.png', 500, 500)
 
 Image('imgAssets/treasureMenu.png', 0, 0)
 compassNeedle = Line(36,33,55,33,arrowEnd = True, lineWidth = 0.5, fill='red')
