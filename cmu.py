@@ -9,6 +9,11 @@ Index = 0
 needleLength = 20
 isFound = False
 
+#Map Moving Variables
+mapX = -300
+mapY = -300
+sceneBackground = Image("imgAssets/backgroundScene.png", mapX, mapY)
+
 # Icons (80x80px)
 rightFacing = [
     Image('imgAssets/cycle1.png', xPos, yPos),
@@ -25,10 +30,9 @@ leftFacing = [
 ]
 
 treasureChest = Image('imgAssets/treasureChest.png', randrange(10, 390), randrange(10, 390))
-sceneBackground = Image('imgAssets\backgroundScene.png', 500, 500)
 
 Image('imgAssets/treasureMenu.png', 0, 0)
-compassNeedle = Line(36,33,55,33,arrowEnd = True, lineWidth = 0.5, fill='red')
+compassNeedle = Line(36,33,55,33,arrowEnd = True, lineWidth = 1, fill=rgb(252,48,3))
 
 plrGold = Label(0, 115, 16, size=18, fill='white', bold=True, align='left')
 
@@ -77,31 +81,50 @@ def onStep():
 
 # Movement Logic
 def onKeyHold(keys):
-    global xPos, yPos, Index, leftFacing, rightFacing
+    global xPos, yPos, Index, leftFacing, rightFacing, mapX, mapY
     if ('w' in keys) or ('a' in keys) or ('s' in keys) or ('d' in keys):  
-        pointNeedle(treasureChest.left, treasureChest.top)
-        if 'w' in keys:
-            if yPos > 0:
-                yPos -= 10
-                updateSprites(None)
-            
         if 's' in keys:
-            if yPos < 350:
-                yPos += 10
-                updateSprites(None)    
-           
-        if 'a' in keys:
-            if xPos > 0:
-                xPos -= 10     
-                updateSprites(leftFacing)   
-        
+            if mapY > -600:
+                mapY -= 10
+                updateSprites(None)
+        if 'w' in keys:
+            if mapY < 0:
+                mapY += 10
+                updateSprites(None)
         if 'd' in keys:
-            if xPos < 350:
-                xPos += 10
-                updateSprites(rightFacing)   
+            if mapX > -600:
+                mapX -= 10
+                updateSprites(rightFacing)
+        if 'a' in keys:
+            if mapX < 0:
+                mapX += 10
+                updateSprites(leftFacing)
+
+        #pointNeedle(treasureChest.left, treasureChest.top)
+
+        # if 'w' in keys:
+        #     if yPos > -20:
+        #         yPos -= 10
+        #         updateSprites(None)
+            
+        # if 's' in keys:
+        #     if yPos < 380:
+        #         yPos += 10
+        #         updateSprites(None)    
+           
+        # if 'a' in keys:
+        #     if xPos > -20:
+        #         xPos -= 10     
+        #         updateSprites(leftFacing)   
+        
+        # if 'd' in keys:
+        #     if xPos < 380:
+        #         xPos += 10
+        #         updateSprites(rightFacing)   
 
            
-            
+        sceneBackground.top = mapY
+        sceneBackground.left = mapX
         Index = (Index + 1) % 4
         
 
