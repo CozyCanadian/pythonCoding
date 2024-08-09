@@ -3,13 +3,13 @@ from cmu_graphics import *
 from random import randrange
 
 # Variables
-xPos = 0
-yPos = 0
+xPos = 160
+yPos = 160
 Index = 0
 needleLength = 20
 isFound = False
 
-# Icons
+# Icons (80x80px)
 rightFacing = [
     Image('imgAssets/cycle1.png', xPos, yPos),
     Image('imgAssets/cycle2.png', xPos, yPos),
@@ -25,6 +25,8 @@ leftFacing = [
 ]
 
 treasureChest = Image('imgAssets/treasureChest.png', randrange(10, 390), randrange(10, 390))
+sceneBackground = Image('imgAssets\1000x100Scene.png', 500, 500)
+
 Image('imgAssets/treasureMenu.png', 0, 0)
 compassNeedle = Line(36,33,55,33,arrowEnd = True, lineWidth = 0.5, fill='red')
 
