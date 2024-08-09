@@ -6,6 +6,7 @@ from random import randrange
 xPos = 0
 yPos = 0
 Index = 0
+needleLength = 20
 isFound = False
 
 # Icons
@@ -25,6 +26,7 @@ leftFacing = [
 
 treasureChest = Image('imgAssets/treasureChest.png', randrange(10, 390), randrange(10, 390))
 Image('imgAssets/treasureMenu.png', 0, 0)
+compassNeedle = Line(36,33,55,33,arrowEnd = True, lineWidth = 0.5, fill='red')
 
 plrGold = Label(0, 115, 16, size=18, fill='white', bold=True, align='left')
 
@@ -49,14 +51,22 @@ def updateSprites(sprite: list):
         spriteElement.left = xPos
         spriteElement.top = yPos
         spriteElement.visible = (i == Index)
-     
+
+def pointNeedle(treasureX, treasureY):
+    angle = angleTo(36, 33, treasureX, treasureY)
+    endX, endY = getPointInDir(36, 33, angle, needleLength)
+    compassNeedle.x2 = endX
+    compassNeedle.y2 = endY
+
 # Game logic
+pointNeedle(treasureChest.left, treasureChest.top)
+
 def onStep():
     global xPos, yPos, isFound, treasureChest
-
     if isFound == True: #Need to spawn in treasure chest
         treasureChest.left = randrange(10, 390)
         treasureChest.top = randrange(10, 390)
+        pointNeedle(treasureChest.left, treasureChest.top)
         isFound = False
     elif isFound == False:
         distanceToChest = distance(xPos+40, yPos+40, treasureChest.left+14.5, treasureChest.top+12) #29x24px
@@ -67,22 +77,29 @@ def onStep():
 def onKeyHold(keys):
     global xPos, yPos, Index, leftFacing, rightFacing
     if ('w' in keys) or ('a' in keys) or ('s' in keys) or ('d' in keys):  
-        if yPos >= 0 and yPos < 400:     
-            if 'w' in keys:
+        pointNeedle(treasureChest.left, treasureChest.top)
+        if 'w' in keys:
+            if yPos > 0:
                 yPos -= 10
                 updateSprites(None)
-            if 's' in keys:
+            
+        if 's' in keys:
+            if yPos < 350:
                 yPos += 10
-                updateSprites(None)
-        
-        if xPos >= 0 and xPos < 400:
-            if 'a' in keys:
+                updateSprites(None)    
+           
+        if 'a' in keys:
+            if xPos > 0:
                 xPos -= 10     
                 updateSprites(leftFacing)   
-            if 'd' in keys:
+        
+        if 'd' in keys:
+            if xPos < 350:
                 xPos += 10
                 updateSprites(rightFacing)   
 
+           
+            
         Index = (Index + 1) % 4
         
 
